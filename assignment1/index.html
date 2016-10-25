@@ -1,42 +1,42 @@
-<!doctype html>
-<html lang="en" ng-app="LunchChecker">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
 
   <title>Lunch Checker</title>
 
-  <link rel="stylesheet" href="assets/styles/bootstrap.min.css">
-  <style>
-    .message { font-size: 1.3em; font-weight: bold; }
-  </style>
-
+  <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/angular.min.js"></script>
   <script src="assets/scripts/app.js"></script>
 </head>
-
 <body>
 
-   <div class="container" ng-controller="LunchMenuController">
-     <h1>Lunch Checker</h1>
+  <!-- lunch-checker -->
+  <div class="lunch-checker">
 
-     <div class="form-group">
-         <input id="lunch-menu" type="text"
-           placeholder="list comma separated dishes you usually have for lunch"
-           ng-model="lunchMenu"
-           class="form-control">
-     </div>
+    <h1 class="lunch-checker__title">Lunch Checker</h1>
 
-     <div class="form-group">
-         <button ng-click="updateMessage();" class="btn btn-default">
-           Check If Too Much
-         </button>
-     </div>
+    <!-- lunch-checker__wrapper -->
+    <div class="lunch-checker__wrapper">
 
-     <div class="form-group message">
-       {{message}}
-     </div>
-   </div> <!-- /container -->
+      <div class="lunch-checker__description">
+        Please enter in the textfield what you usually eat for lunch, separated by comma.
+        Empty items will not be counted.
+      </div>
+
+      <input class="lunch-checker__text-field" type="text"
+             placeholder="Rice, Salad, Vegetables">
+
+      <button class="lunch-checker__button">Check if too much</button>
+
+      <div class="lunch-checker__message">
+        message
+      </div>
+
+    </div> <!-- lunch-checker__wrapper -->
+
+  </div> <!-- lunch-checker -->
 
 </body>
 </html>

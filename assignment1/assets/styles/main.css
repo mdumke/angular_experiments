@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: roboto, sans-serif;
+}
+
+.lunch-checker {
+  max-width: 600px;
+  margin: 30px auto 0 auto;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.lunch-checker__title {
+  padding: 15px 15px 10px 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  font-weight: 500;
+}
+
+.lunch-checker__wrapper {
+  padding: 0 15px;
+}
+
+.lunch-checker__description {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.lunch-checker__text-field {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1.1rem;
+}
+
+.lunch-checker__text-field--valid {
+  border: 2px solid #19AF4A;
+}
+
+.lunch-checker__text-field--invalid {
+  border: 2px solid #D41B1B;
+}
+
+.lunch-checker__button {
+  display: block;
+  margin-bottom: 40px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: #333;
+  background-color: #eee;
+  font-size: 1.05rem;
+}
+
+.lunch-checker__button:hover {
+  background-color: #ddd;
+  color: #000;
+  border: 1px solid #aaa;
+}
+
+.lunch-checker__message {
+  padding-bottom: 50px;
+  font-size: 1.1rem;
+}
+

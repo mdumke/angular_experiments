@@ -3,12 +3,12 @@
   'use strict';
 
   angular
-    .module('LunchChecker', [])
-    .controller('LunchMenuController', LunchMenuController);
+    .module('LunchCheck', [])
+    .controller('LunchCheckController', LunchCheckController);
 
-  LunchMenuController.$inject = ['$scope'];
+  LunchCheckController.$inject = ['$scope'];
 
-  function LunchMenuController ($scope) {
+  function LunchCheckController ($scope) {
 
     // sets the message accorging to how many food items are on the list
     $scope.updateMessage = function () {
