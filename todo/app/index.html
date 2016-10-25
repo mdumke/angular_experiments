@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="TodoApp">
+<head>
+  <script src="../node_modules/angular/angular.js"></script>
+  <script src="./assets/scripts/app.js"></script>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="todo-list" ng-controller="TodolistController">
+      <input type="text"
+        ng-model="content"
+        ng-blur="upcaseContent();">
+
+      {{content}}
+    </div>
+  </div>
+
+</body>
+</html>
