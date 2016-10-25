@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="LunchCheck">
 <head>
   <meta charset="UTF-8">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -13,7 +13,7 @@
 <body>
 
   <!-- lunch-checker -->
-  <div class="lunch-checker">
+  <div class="lunch-checker" ng-controller="LunchCheckController">
 
     <h1 class="lunch-checker__title">Lunch Checker</h1>
 
@@ -25,13 +25,18 @@
         Empty items will not be counted.
       </div>
 
-      <input class="lunch-checker__text-field" type="text"
-             placeholder="Rice, Salad, Vegetables">
+      <form>
+        <input class="lunch-checker__text-field lunch-checker__text-field{{inputModifier}}" type="text"
+               ng-model="lunchMenu"
+               placeholder="Rice, Salad, Vegetables">
 
-      <button class="lunch-checker__button">Check if too much</button>
+        <button type="submit" class="lunch-checker__button" ng-click="updateMessage();">
+          Check if too much
+        </button>
+      </form>
 
-      <div class="lunch-checker__message">
-        message
+      <div class="lunch-checker__message lunch-checker__message{{messageModifier}}">
+        {{message}}
       </div>
 
     </div> <!-- lunch-checker__wrapper -->

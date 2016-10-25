@@ -42,12 +42,17 @@ body {
   font-size: 1.1rem;
 }
 
+.lunch-checker__text-field:focus {
+  outline: none;
+  box-shadow: 2px 2px 4px #999;
+}
+
 .lunch-checker__text-field--valid {
-  border: 2px solid #19AF4A;
+  border: 1px solid #19AF4A;
 }
 
 .lunch-checker__text-field--invalid {
-  border: 2px solid #D41B1B;
+  border: 1px solid #D41B1B;
 }
 
 .lunch-checker__button {
@@ -61,6 +66,12 @@ body {
   font-size: 1.05rem;
 }
 
+.lunch-checker__button:focus {
+  outline: none;
+  background-color: #ccc;
+  border-color: #aaa;
+}
+
 .lunch-checker__button:hover {
   background-color: #ddd;
   color: #000;
@@ -70,5 +81,15 @@ body {
 .lunch-checker__message {
   padding-bottom: 50px;
   font-size: 1.1rem;
+  min-height: 5em;
+  color: #333;
+}
+
+.lunch-checker__message--accepted {
+  color: #19AF4A;
+}
+
+.lunch-checker__message--warning {
+  color: #D41B1B;
 }
 

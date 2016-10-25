@@ -14,13 +14,24 @@
     $scope.updateMessage = function () {
       var numItems = countMenuItems($scope.lunchMenu);
 
-      if (numItems < 1)
+      if (numItems < 1) {
         $scope.message = "Please enter data first";
-      else if (numItems < 4)
+        $scope.inputModifier = "--invalid";
+        $scope.messageModifier = "";
+      }
+      else if (numItems < 4) {
         $scope.message = "Enjoy!";
-      else
+        $scope.inputModifier = "--valid";
+        $scope.messageModifier = "--accepted";
+      }
+      else {
         $scope.message = "Too much!";
+        $scope.inputModifier = "--valid";
+        $scope.messageModifier = "--warning";
+      }
     }
+
+
 
     // returns the number of comma-separated words, ignoring empty strings
     var countMenuItems = function (menuString) {
