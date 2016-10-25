@@ -1,0 +1,48 @@
+(function () {
+
+  'use strict';
+
+  angular
+    .module('LunchChecker', [])
+    .controller('LunchMenuController', LunchMenuController);
+
+  LunchMenuController.$inject = ['$scope'];
+
+  function LunchMenuController ($scope) {
+
+    // sets the message accorging to how many food items are on the list
+    $scope.updateMessage = function () {
+      var numItems = countMenuItems($scope.lunchMenu);
+
+      if (numItems < 1)
+        $scope.message = "Please enter data first";
+      else if (numItems < 4)
+        $scope.message = "Enjoy!";
+      else
+        $scope.message = "Too much!";
+    }
+
+    // returns the number of comma-separated words, ignoring empty strings
+    var countMenuItems = function (menuString) {
+      if (!menuString) return 0;
+
+      return menuString
+        .split(',')
+        .map(stripWhitespace)
+        .filter(nonEmptyString)
+        .length;
+    }
+
+    // returns true if the given string is not empty
+    var nonEmptyString = function (str) {
+      return !!str;
+    }
+
+    // returns the given string without leading or trailing whitespace
+    var stripWhitespace = function (str) {
+      return str.trim();
+    }
+
+  }
+
+})()
