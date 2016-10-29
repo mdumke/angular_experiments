@@ -1,47 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="LunchCheck">
+<html lang="en"
 <head>
   <meta charset="UTF-8">
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>angular-assignments</title>
 
-  <title>Lunch Checker</title>
+  <style type="text/css" media="all">
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-  <link rel="stylesheet" href="assets/styles/main.css">
-  <script src="assets/scripts/angular.min.js"></script>
-  <script src="assets/scripts/app.js"></script>
+    body {
+      font-family: roboto, sans-serif;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    a {
+      color: #777;
+    }
+
+    .assignments {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 40px;
+    }
+
+    .assignments__title {
+      font-weight: 300;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .assignments__description {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .assignments__listing {
+      list-style: none;
+    }
+
+  </style>
+
 </head>
+
 <body>
 
-  <!-- lunch-checker -->
-  <div class="lunch-checker" ng-controller="LunchCheckController">
+  <div class="assignments">
+    <h1 class="assignments__title">Course Assignments</h1>
 
-    <h1 class="lunch-checker__title">Lunch Checker</h1>
+    <p class="assignments__description">My solutions to the course-assignments for
+      <a href="https://www.coursera.org/learn/single-page-web-apps-with-angularjs">
+        Single page web apps with angularjs
+      </a>
+    </p>
 
-    <!-- lunch-checker__wrapper -->
-    <div class="lunch-checker__wrapper">
-
-      <div class="lunch-checker__description">
-        Please enter in the textfield what you usually eat for lunch, separated by comma.
-        Empty items or items that consist only of space-characters will not be counted.
-      </div>
-
-      <form>
-        <input class="lunch-checker__text-field lunch-checker__text-field{{inputModifier}}" type="text"
-               ng-model="lunchMenu"
-               placeholder="Rice, Salad, Vegetables">
-
-        <button type="submit" class="lunch-checker__button" ng-click="updateMessage();">
-          Check if too much
-        </button>
-      </form>
-
-      <div class="lunch-checker__message lunch-checker__message{{messageModifier}}">
-        {{message}}
-      </div>
-
-    </div> <!-- lunch-checker__wrapper -->
-
-  </div> <!-- lunch-checker -->
+    <ul class="assignments__listing">
+      <li><a href="assignment1/index.html">Assignment 1: Lunch Checker</a></li>
+    </ul>
+  </div>
 
 </body>
 </html>

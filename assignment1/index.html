@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="LunchCheck">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>Lunch Checker</title>
+
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/scripts/angular.min.js"></script>
+  <script src="assets/scripts/app.js"></script>
+</head>
+<body>
+
+  <!-- lunch-checker -->
+  <div class="lunch-checker" ng-controller="LunchCheckController">
+
+    <h1 class="lunch-checker__title">Lunch Checker</h1>
+
+    <!-- lunch-checker__wrapper -->
+    <div class="lunch-checker__wrapper">
+
+      <div class="lunch-checker__description">
+        Please enter in the textfield what you usually eat for lunch, separated by comma.
+        Empty items or items that consist only of space-characters will not be counted.
+      </div>
+
+      <form>
+        <input class="lunch-checker__text-field lunch-checker__text-field{{inputModifier}}" type="text"
+               ng-model="lunchMenu"
+               placeholder="Rice, Salad, Vegetables">
+
+        <button type="submit" class="lunch-checker__button" ng-click="updateMessage();">
+          Check if too much
+        </button>
+      </form>
+
+      <div class="lunch-checker__message lunch-checker__message{{messageModifier}}">
+        {{message}}
+      </div>
+
+    </div> <!-- lunch-checker__wrapper -->
+
+  </div> <!-- lunch-checker -->
+
+</body>
+</html>
