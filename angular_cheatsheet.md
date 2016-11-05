@@ -1,4 +1,4 @@
-# angular cheatsheet
+# Angularjs cheatsheet
 
 October 2016
 
@@ -13,7 +13,7 @@ Johns Hopkins University / coursera
 - angular is based on the `Model View ViewModel` pattern, but this can be easily overridden, e.g. by grabbing dom-elements directly from within a controller. Because of this flexibility, it is sometimes referred to as the `MV*` pattern.
 - the viewmodel holds data that is then rendered by the view (in contrast to the model itself which holds the raw data, e.g. from a database). Datasharing between the viewmodel and the view works trhough the `$scope`. Note that angular exposes a number of variables starting with `$` that are sometimes refered to as `services`. The scope-service manages datatransfer to the view.
 - As a basic example, say I want to print out a message to the screen. First thing to do would be to start an app in my `index.html`:
-```
+```html
 <!DOCTYPE html>
 <html ng-app="Messenger">
 <head>
@@ -25,7 +25,7 @@ Johns Hopkins University / coursera
 </html>
 ```
 - This will allow angular to attach a module which holds the apps behavior. To specify a viewmodel, here called a controller, we have to specify one in our javascript, e.g. directly in `app.js`:
-```
+```javascript
 var angular = require('angular');
 
 (function () {
@@ -39,13 +39,14 @@ var angular = require('angular');
 })()
 ```
 - This code does two things: it specifies the MessageController-function as part of the Messenger-app, and within that function it adds a message to the scope-service. This message will be available to the view, as would be any function we would add to the scope. We can use it like so:
-```
+```HTML
 <div ng-controller="MessageController">
   {{message}}
 </div>
+```
 - We need some html-element to bind the controller to, then within that element `$scope` will be implicitely set so we can render out the message-value using mustache-templating syntax.
 - Another possibility to make use of content bound to the scope is to associate an input element with a model of that name. For example, in the following code, changing the text inside the text-input would automatically change the data on the viewmodel - through the scope-service.
-```
+```html
 <div ng-controller="MessageController">
   <input type="text" ng-model="message">
 </div>
@@ -56,7 +57,7 @@ var angular = require('angular');
 <input type="text" ng-model="content" ng-blur="upcaseContent();" />
 ```
 - The corresponding controller might look like this:
-```
+```js
 function ContentController ($scope, $filter) {
   $scope.content = "abc";
 
