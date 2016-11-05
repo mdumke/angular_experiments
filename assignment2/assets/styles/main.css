@@ -26,9 +26,9 @@ body {
   float: left;
   padding: 4px;
   font-size: 1.2rem;
-  color: #333;
+  color: #444;
   margin-right: 5px;
-  text-shadow: 2px 2px 2px #999;
+  text-shadow: 2px 2px 2px #bbb;
 }
 
 .wrapper {
@@ -73,6 +73,10 @@ body {
   font-size: 1.1rem;
 }
 
+.list__item--alert {
+  color: #c00;
+}
+
 .list__item::after {
   content: '';
   clear: both;
@@ -100,5 +104,4 @@ body {
 .list__item-button:focus {
   outline: none;
 }
-
 

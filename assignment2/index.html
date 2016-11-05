@@ -37,43 +37,50 @@
     <div class="row">
 
       <!-- list -->
-      <div class="list" ng-controller="ToBuyController as toBuyCtrl">
+      <div class="list" ng-controller="ToBuyController">
 
         <div class="list__head">
           <h2 class="list__title">To Buy</h2>
         </div>
 
         <!-- list__item -->
-        <div class="list__item" ng-repeat="item in toBuyCtrl.items">
+        <div class="list__item" ng-repeat="item in items">
           <div class="list__item-text">
-            Buy {{ item }}
+            Buy {{ item.quantity }} {{ item.name }}
           </div>
 
-          <button class="list__item-button">
+          <button class="list__item-button" ng-click="checkOffItem($index);">
             Bought <i class="fa fa-check"></i>
           </button>
+        </div> <!-- /list__item -->
+
+        <!-- list__item -->
+        <div class="list__item list__item--alert" ng-if="items.length === 0">
+          <div class="list__item-text">
+            Everything is bought!
+          </div>
         </div> <!-- /list__item -->
 
       </div> <!-- /list -->
 
       <!-- list -->
-      <div class="list">
+      <div class="list" ng-controller="AlreadyBoughtController">
 
         <div class="list__head">
           <h2 class="list__title">Already Bought</h2>
         </div>
 
         <!-- list__item -->
-        <div class="list__item">
+        <div class="list__item" ng-repeat="item in items">
           <div class="list__item-text">
-            Bought 7 smurf figurines
+            Bought {{ item.quantity }} {{ item.name }}
           </div>
         </div> <!-- /list__item -->
 
         <!-- list__item -->
-        <div class="list__item">
+        <div class="list__item list__item--alert" ng-if="items.length === 0">
           <div class="list__item-text">
-            Bought 1 cake
+            Nothing bought yet.
           </div>
         </div> <!-- /list__item -->
 
