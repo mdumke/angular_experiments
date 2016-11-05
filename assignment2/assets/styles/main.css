@@ -74,7 +74,7 @@ body {
 }
 
 .list__item--alert {
-  color: #c00;
+  color: #bbb;
 }
 
 .list__item::after {

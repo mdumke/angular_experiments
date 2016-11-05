@@ -152,13 +152,13 @@ function Ctrl($scope, customFilter) {
 - the magic of which parts of the page get updated when is handled by angular's digest-cycle. For this to work, angular uses 'directives' like `ng-click` or `ng-keyup` to add events to the event-queue that it can track. These directives are events that get handled inside an angular context (the $scope). Angular sets up 'watchers' for some elements and if a directive executes it will call `$digest` which in turn will check all the watchers to see if anything has changed.
 - the digest-loop performs 'dirty checking' on all the watchers. If nothing is changed, it simple ends, but if anything has changed, it goes through all the watchers again, and if anything has changed again, it checks all the watchers another time, until no changes are to be found. This ensures that complex dependencies among elements are respected.
 - automation of view-updates happens with 'watchers'. For starters, we can look behind the scenes and output the number of watchers at any time via `$scope.$$watchersCount;`. There are multiple ways to add watchers. First off the manual way: we can simply call the `$watch`-function on the scope and tell it which scope-attribute to watch and what to do when it changes:
-```html
+```js
 $scope.$watch('name', function (newValue, oldValue) {
   // ...
 });
 ```
 - this manual way is not recommended because angular has two mechanisms to automatically add watchers when needed:
-```js
+```html
 // 1. through expressions
 {{ name }}
 
