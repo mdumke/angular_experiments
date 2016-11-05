@@ -32,10 +32,10 @@ function ShoppingListCheckOffService () {
 
   service.itemsToBuy = [
     { name: 'clones of myself', quantity: 2 },
-    { name: 'competing firms', quantity: 4 },
-    { name: 'spaceship', quantity: 1 },
-    { name: 'socks', quantity: 3 },
-    { name: 'christmas trees', quantity: 8}
+    { name: 'competing firms',  quantity: 4 },
+    { name: 'spaceship',        quantity: 1 },
+    { name: 'socks',            quantity: 3 },
+    { name: 'christmas trees',  quantity: 8 }
   ];
 
   service.itemsBought = [];

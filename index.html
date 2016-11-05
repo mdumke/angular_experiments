@@ -13,11 +13,15 @@
     body {
       font-family: roboto, sans-serif;
       font-size: 1.2rem;
-      color: #333;
+      color: #444;
     }
 
     a {
-      color: #777;
+      color: #444;
+    }
+
+    a:hover {
+      color: #666;
     }
 
     .assignments {
@@ -31,6 +35,7 @@
       font-weight: 300;
       font-size: 1.5rem;
       margin-bottom: 10px;
+      color: #000;
     }
 
     .assignments__description {
@@ -42,6 +47,25 @@
       list-style: none;
     }
 
+    .assignments__list-item {
+      margin-bottom: 20px;
+    }
+
+    .assignments__item-link {
+      color: #000;
+    }
+
+    .assignments__item-link:hover {
+      color: #555;
+    }
+
+    .assignments__item-description {
+      font-size: 0.9rem;
+      margin-top: 5px;
+      padding-left: 20px;
+      max-width: 500px;
+    }
+
   </style>
 
 </head>
@@ -51,14 +75,32 @@
   <div class="assignments">
     <h1 class="assignments__title">Course Assignments</h1>
 
-    <p class="assignments__description">My solutions to the course-assignments for
+    <p class="assignments__description">My solutions for the course-assignments for
       <a href="https://www.coursera.org/learn/single-page-web-apps-with-angularjs">
         Single page web apps with angularjs
       </a>
     </p>
 
     <ul class="assignments__listing">
-      <li><a href="assignment1/index.html">Assignment 1: Lunch Checker</a></li>
+      <li class="assignments__list-item">
+        <a class="assignments__item-link" href="assignment1/index.html">
+          Assignment 1: Lunch Checker
+        </a>
+        <p class="assignments__item-description">
+          Getting acquainted with angular's approach to handling 2-way binidngs.
+          User input is parsed and searched for comma separated words.
+        </p>
+      </li>
+
+      <li class="assignments__list-item">
+        <a class="assignments__item-link" href="assignment2/index.html">
+          Assignment 2: Shopping List Check Off
+        </a>
+        <p class="assignments__item-description">
+          Using two controllers to handle different lists and sharing state
+          via an injected service.
+        </p>
+      </li>
     </ul>
   </div>
 
