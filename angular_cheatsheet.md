@@ -150,4 +150,287 @@ function Ctrl($scope, customFilter) {
 ### the digest-cycle
 - the magic of which parts of the page get updated when is handled by angular's digest-cycle. For this to work, angular uses 'directives' like `ng-click` or `ng-keyup` to add events to the event-queue that it can track. These directives are events that get handled inside an angular context (the $scope). Angular sets up 'watchers' for some elements and if a directive executes it will call `$digest` which in turn will check all the watchers to see if anything has changed.
 - the digest-loop performs 'dirty checking' on all the watchers. If nothing is changed, it simple ends, but if anything has changed, it goes through all the watchers again, and if anything has changed again, it checks all the watchers another time, until no changes are to be found. This ensures that complex dependencies among elements are respected.
+- automation of view-updates happens with 'watchers'. For starters, we can look behind the scenes and output the number of watchers at any time via `$scope.$$watchersCount;`. There are multiple ways to add watchers. First off the manual way: we can simply call the `$watch`-function on the scope and tell it which scope-attribute to watch and what to do when it changes:
+```
+$scope.$watch('name', function (newValue, oldValue) {
+  // ...
+});
+```
+- this manual way is not recommended because angular has two mechanisms to automatically add watchers when needed:
+```
+// 1. through expressions
+{{ name }}
+
+// 2. through 2-way bindings on inputs
+ng-model="name"
+```
+- the digest-loop can be initialized manually calling the **$digest**-function via `$scope.$digest();`. This can be helpful if non-ng-events on the event-queue are supposed to have an effect on the UI-state. Simple example:
+```
+$scope.incrementCounter = function () {
+  setTimeout(function () {
+    $scope.counter++;
+    $scope.$digest();
+  }, 2000);
+}
+```
+- In this case, we have a timeout-event that fires independently of the angular context, hence angular does not know about it. To integrate it, call the digest-funtion. There is an even better way to do exactly the same task using the **$apply**-function:
+```
+$scope.incrementCounter = function () {
+  setTimeout(function () {
+    $scope.$apply(function () {
+      $scope.counter++;
+    }
+  }, 2000);
+}
+```
+- this code has the same effect of performing the update inside the angular-context, but it has the additional benefit that in the case of error the error-messages willl be reported properly and angular will know something went wrong (instead of just not reaching the call to `$digest`.
+- in the case of the current example, there is a way of generating the behavior with built-in angular methods using the **$timeout**-service that we can inject into the controller:
+```
+function someController ($scope, $timeout) {
+  $scope.incrementCounter = function () {
+    $timeout(function () {
+      $scope.counter++;
+    }, 2000);
+  }
+}
+```
+- angular can employ different bindings and listeners:
+```
+// 2-way-binding keeping input- and controller-state in sync:
+ng-model="someAttribute"
+
+// 1-way-binding keeping the view updated:
+{{ someOtherAttribute }}
+
+// 1-time-binding that will only be set once:
+{{ :: thirdAttribute }}
+```
+- 1-time-bindings are useful because the browser doesn't have to maintain the watchers for them. As a *rule of thumb* a page should not have more than about 2000 active watchers. Angular will provide a watcher for the 1-time-binding, but it will remove it once the value has been initialized.
+
+
+## week 2: Looping, Controller as syntax
+
+- Angular offers ways to iterate over collections of elements and output them repeatedly using the `ng-repeat`-directive, e.g.:
+```
+<ul>
+  <li ng-repeat="str in listOfStrings">{{ str }}</li>
+</ul>
+
+<ul>
+  <li ng-repeat="obj in listOfObjects">{{ obj.attr1 }}, {{ obj.attr2 }}</li>
+</ul>
+```
+- Inside the loop, angular provides access to the current index:
+```
+<ul>
+  <li ng-repeat="item in collection">{{ $index + 1 }}: {{ item }}</li>
+</ul>
+```
+- As is to be expected, angular will add watchers for all the list-items and the complete list itself, so that the view will be re-rendered when the list changes
+- Angular also provides capabilities to filter lists on the fly using the `$filter.filter` service that has bindings both for html and javascript. For example, it is quite easy to implement basic searching behavior in a list of strings:
+```
+<input type="text" ng-model="search" />
+
+<ul>
+  <li ng-repeat="item in list | filter : search">{{ item }}</li>
+</ul>
+```
+- As a sidenote, there are angular-directives for displaying content conditioned on an expression: `ng-if`, `ng-show`, and `ng-hide`. The following are equivalent in that they all display an error message when it is set on the view-model, but ng-if actually removes the DOM-element whereas the other directives only add or remove the `ng-hide` class from the element:
+```
+<div ng-if="list.errorMessage">{{ list.errorMessage }}</div>
+<div ng-show="list.errorMessage">{{ list.errorMessage }}</div>
+<div ng-hide="!list.errorMessage">{{ list.errorMessage }}</div>
+```
+
+### controller as syntax
+
+- here's a quick reminder of what prototypal inheritance looks like in javascript:
+```
+// create some parent object
+var parent = {
+  someProperty: "P",
+  someObject: {
+    key: "value"
+  }
+}
+
+// set the parent as direct ancestor in the prototype-chain
+var child = Object.create(parent);
+
+// directly overwrite attributes on the child
+child.someProperty = "C";
+
+// prototypal inheritance with objects will change state on the parent!
+child.someObject.key = "new value";
+```
+- another quick reminder: when using function contructors, 1. give the class a name starting with uppercase, 2. call it using `new`. Inside the constructor, `this` will now point to the newly created object. When just calling the constructor, `this` will reference the outermost scope. Here`s a simple example:
+```
+function Dog (name) {
+  this.name = name;
+}
+
+var lassy = new Dog('Lassy');
+```
+- it's not a good practice to have a single controller handle all tasks in a page. A better approach is to nest controllers that take care of the different parts of the application. When nesting controllers, the inner controllers will automatically inherit the outside-scope. This, however, can lead into problems if an inner controller would reuse a property defined on the outside-controller, thereby masking it. Angular has a way to work around these limitations while introducting some new pieces of syntax.
+- The key idea is that scope-inheritance works with prototypal object-inheritance, not simply primitive inheritancewhere all a descendent controller could do would be to override a property. To achieve this, the controller-directive introduces the 'controller as'-syntax, and angular will add the specified name to the current scope:
+```
+<!-- controller as syntax -->
+<div ng-controller="Controller1 as ctrl1"></div>
+<div ng-controller="Controller2 as ctrl2"></div>
+
+// makes instances of the controller-objects available on the scope
+$scope.ctrl1;
+$scope.ctrl2;
+```
+- with this setup, it is possible to refer to a current controller via `this`, removing the necessity of injecting `$scope` into the controller-function in the first place:
+```
+function Controller1 () {
+  // this = ctrl1, the name given in the html-directive
+  this.name = "value";
+
+  // also good practice to use a variable named as the shorthand from the directive:
+  var ctrl1 = this;
+  ctrl1.name = "value";
+}
+```
+- finally, all these mechansims will lead to more concise syntax. In the html, we can now reference identically named attributes on different controllers, e.g.
+```
+<p>{{ ctrl1.someProperty }}</p>
+<p>{{ ctrl2.someProperty }}</p>
+```
+
+
+## week 2: creating and configuring custom services
+
+- controllers' purpose is to set up the initial state of the `$scope` and add behavior to it, i.e. handling events and updating the view-data accordingly. Business logic of the application should be strictly kept out and should be delegated to dedicated components.
+- Complex applications are going to consist of a number of controllers and some data sharing between those is inevitable. However, data sharing should be implemented, again, using dedicated components.
+- Here's how to register a service with a controller using a contructor function:
+```
+angular
+  .module('app', [])
+  .controller('ctrl', Ctrl)
+  .service('CustomService', CustomService)
+```
+- The service that angular will create will be a singleton (Singleton Design Pattern), i.e. an object that will only ever have one instance, which means that multiple controllers can have access to that same instance.
+- Services are lazily instantiated, i.e. if a component actually declares it as a dependency.
+- Here's a exaple of a service that has an internal array to keep some data, a function to add data to the array and an accessor-method to retrieve the whole array. This service gets injected into different controllers, so one controller can add data to the service, and the other can immediately retrieve it:
+```
+angular
+  .module('app', [])
+  .controller('ctrl1', Ctrl1)
+  .controller('ctrl2', Ctrl2)
+  .service('ItemListService', ItemListService);
+
+// define controllers
+Ctrl1.$inject = ['ItemListService'];
+function Ctrl1(ItemListService) {
+  // add or retrieve items
+}
+
+Ctrl2.$inject = ['ItemListService'];
+function Ctrl2(ItemListService) {
+  // add or retrieve items
+}
+
+// define the service
+function ItemListService () {
+  var service = this;
+
+  var items = [];
+
+  service.addItem = function (itemName) {
+    item.push(itemName);
+  };
+
+  service.removeItem = function (index) {
+    item.splice(index, 1);
+  };
+
+  service.getItems = function () {
+    return items;
+  };
+}
+```
+- Note again that the service-function will treat the function passed into it as a contructor-function that it will instantiate so that `this` will point to the instance.
+- Angular follows the *factory design pattern* in that it provides central places that produce new objects of functions. The `.service()`-function is such a factory that always produces the same kind of things - services. But these and many other objects can also be created with the more powerful and more general factory `.factory()`.
+- If we have a contructor function that produces a service, say, `CustomService`, we can register the factory as in the following example:
+```
+angular
+  .module('app', [])
+  .controller('ctrl', Ctrl)
+  .factory('CustomService', CustomService);
+```
+- In contrast, the `service`-function would expect the function passed in to *be* the service, not *produce* it.
+-Note that if we register a new service with the name 'CustomService', this is the name to be used when injecting the factory into other places.
+- There are two common options for setting up a service. The first one is specifing a factory-function whose return value is the service-function:
+```
+// defining the factory
+function CustomService () {
+  var factory = function () {
+    return new SomeService();
+  };
+
+  return factory;
+};
+
+// using the factory inside the controller
+var someService = CustomService();
+```
+- An alternative way would be to return an object literal that has the factory as a value:
+```
+// defining the factory
+function CustomService () {
+  var factory = {
+    getSomeService : function () {
+      return new SomeService();
+    }
+  };
+
+  return factory;
+};
+
+// using the factory
+var someService = CustomService.getSomeService();
+```
+- Note that in both scenarios, the factory-function decides to create a new service when asked for one. This not only illustrates that the factory has complete control over what the service will be, but also that it could decide to make the service a singleton as the `service`-method would.
+- A third and very flexible but verbose way to create services is through the `provider`-function. With this it is possible to to preconfigure a new factory before the application starts and use the custom-configured services throughout.
+- Angular expects a provider-instance to expose a `$get`-method that has to be a factory-function. A provider can be defined along the following lines:
+```
+function ServiceProvider () {
+  var provider = this;
+
+  provider.config = {
+    prop: 'value'
+  };
+
+  provider.$get = function () {
+    var service = new Service(provider.config.prop);
+    return service;
+  };
+}
+```
+- The provider can be registered on the module with the name that will be used to inject it into other components later:
+```
+angular
+  .module('app', [])
+  .controller('ctrl', Ctrl)
+  .provider('ServiceName', ServiceProvider)
+  .config(Config);
+
+Ctrl.$inject = ['$scope', 'ServiceName'];
+
+function Ctrl ($scope, ServiceName) {
+  ServiceName.someMethod();
+};
+```
+- The `config`-function is optional, but if provided, it is guaranteed to run before any other serices, factories or controllers are created. This way it is possible to configure services at bootstrap-time. The configuration is itself a function that gets injected with the service-provider. Note the naming-conventions: Config has to be injected with the registered service-name plus 'Provider' appended to it:
+```
+Config.$inject = ['ServiceNameProvider'];
+
+function Config (ServiceNameProvider) {
+  ServiceNameProvider.config.prop = 'value';
+};
+```
+
+
 
