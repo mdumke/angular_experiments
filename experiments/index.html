@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MoviesApp">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      color: #333;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .movie-list {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 40px;
+      font-size: 1.3rem;
+    }
+
+    .movie-list__title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .movie-list__input {
+      font-size: 1.3rem;
+      padding: 3px 7px;
+      margin-bottom: 5px;
+    }
+
+    .movie-list__button {
+      position: relative;
+      top: -1px;
+      font-size: 1.2rem;
+      padding: 4px 7px;
+      color: #444;
+    }
+  </style>
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <div class="movie-list" ng-controller="MovieListController as movies">
+    <h1 class="movie-list__title">Movielist</h1>
+    <ul>
+      <li ng-repeat="movie in movies.list track by $index">{{ movie }}</li>
+    </ul>
+
+    <br>
+
+    <input type="text"
+      class="movie-list__input"
+      ng-keydown="movies.keydown($event);"
+      ng-model="movies.newMovie"
+      placeholder="Ikiru" />
+
+    <button class="movie-list__button" ng-click="movies.addMovie();">
+      add movie
+    </button>
+  </div>
+
+</body>
+</html>

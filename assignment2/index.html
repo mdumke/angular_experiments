@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ShoppingListCheckOff">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Shopping List Checkoff</title>
+
+  <link rel="stylesheet" href="assets/styles/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/styles/main.css">
+
+  <script src="assets/scripts/angular.min.js"></script>
+  <script src="assets/scripts/app.js"></script>
+</head>
+
+<body>
+
+  <!-- page-header -->
+  <div class="page-header">
+
+    <div class="wrapper">
+      <div class="row">
+        <i class="page-header__icon fa fa-shopping-basket"></i>
+
+        <h1 class="page-header__title">
+          Shopping List Check Off
+        </h1>
+      </div>
+    </div>
+
+  </div> <!-- /page-header -->
+
+  <!-- wrapper -->
+  <div class="wrapper">
+
+    <!-- row -->
+    <div class="row">
+
+      <!-- list -->
+      <div class="list" ng-controller="ToBuyController as toBuyCtrl">
+
+        <div class="list__head">
+          <h2 class="list__title">To Buy</h2>
+        </div>
+
+        <!-- list__item -->
+        <div class="list__item" ng-repeat="item in toBuyCtrl.items">
+          <div class="list__item-text">
+            Buy {{ item }}
+          </div>
+
+          <button class="list__item-button">
+            Bought <i class="fa fa-check"></i>
+          </button>
+        </div> <!-- /list__item -->
+
+      </div> <!-- /list -->
+
+      <!-- list -->
+      <div class="list">
+
+        <div class="list__head">
+          <h2 class="list__title">Already Bought</h2>
+        </div>
+
+        <!-- list__item -->
+        <div class="list__item">
+          <div class="list__item-text">
+            Bought 7 smurf figurines
+          </div>
+        </div> <!-- /list__item -->
+
+        <!-- list__item -->
+        <div class="list__item">
+          <div class="list__item-text">
+            Bought 1 cake
+          </div>
+        </div> <!-- /list__item -->
+
+      </div> <!-- /list -->
+
+    </div> <!-- /row -->
+
+  </div> <!-- /wrapper -->
+
+</body>
+</html>

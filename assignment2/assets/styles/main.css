@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #333;
+  font-family: roboto, sans-serif;
+}
+
+.page-header {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.page-header__title {
+  float: left;
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.page-header__icon {
+  float: left;
+  padding: 4px;
+  font-size: 1.2rem;
+  color: #333;
+  margin-right: 5px;
+  text-shadow: 2px 2px 2px #999;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  margin-right: -50px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.list {
+  float: left;
+  width: 45%;
+  border-bottom: none;
+  margin-right: 45px;
+}
+
+.list__head {
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.list__title {
+  font-weight: 300;
+}
+
+.list__item {
+  position: relative;
+  padding: 20px 15px;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  font-size: 1.1rem;
+}
+
+.list__item::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+.list__item-text {
+  padding: 8px;
+  float: left;
+}
+
+.list__item-button {
+  float: right;
+  color: darkgreen;
+  padding: 10px 15px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.list__item-button:hover {
+  background-color: #eee;
+}
+
+.list__item-button:focus {
+  outline: none;
+}
+
+
