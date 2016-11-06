@@ -49,9 +49,9 @@ body {
 
 .list {
   float: left;
-  width: 45%;
+  width: 50%;
   border-bottom: none;
-  margin-right: 45px;
+  padding-right: 50px;
 }
 
 .list__head {
@@ -103,5 +103,23 @@ body {
 
 .list__item-button:focus {
   outline: none;
+}
+
+@media (max-width: 800px) {
+  .page-header {
+    padding-left: 30px;
+  }
+
+  .row {
+    margin-right: 0;
+  }
+
+  .list {
+    padding-right: 0;
+    width: 100%;
+    margin-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
