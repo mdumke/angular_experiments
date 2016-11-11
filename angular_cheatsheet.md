@@ -435,4 +435,212 @@ function Config (ServiceNameProvider) {
 ```
 
 
+## week 3.1: Asynchronous Behavior, Promises, and Ajax in Angular
+
+- angular implements its own promise-API (the `$q`-service) that is very similar to the one specified in ES6
+- as a reminder: a promise is an object that holds references to the outcomes of asynchronous behavior
+- Here's a template for writing an asychronous function in angular, using the `$q`-service:
+```js
+function asyncFunction () {
+  // create the async environment, including the promise object
+  var deferred = $q.defer();
+
+  if (...) {
+    // wrap data for the promise in case of success
+    deferred.resolve(result);
+  } else {
+    // mark unsuccessful completion
+    deferred.reject(error);
+  }
+
+  // return the promise to the caller
+  return deferred.promise;
+}
+```
+- On the caller-side, there is a `then`-function available on the returned promise that takes as arguments two functions for success and error:
+```js
+var promise = asyncFuntion();
+
+promise.then(function (result) {
+  // do something with the result
+},
+
+function (error) {
+  // do something with the error
+});
+```
+- Multiple asynchronous functions can be executed in parallel like this:
+```js
+$q.all([promise1, promise2])
+  .then(function (result) {
+    // do something with result
+  })
+  .catch(function (error) {
+    // handle error
+  });
+```
+- For servier-communication, angular uses the `$http`-service which is based on the `$q`-service. It takes as argument a configuration object to set up the request, and it returns a promise, hence a basic interaction could look like this:
+```js
+$http({
+  method: "GET",
+  url: "http://some-url", // required property
+  params: { param1: "value1" }
+})
+.then(
+  function (response) {
+    // the success-function, response has the important response.data which
+    // will be converted to a js-object if it's JSON
+    // so we could write for example
+    $scope.message = response.data;
+  },
+  function (error) {
+    // 2nd argument is the error-function
+  }
+);
+```
+- It is of course often helpful to hide the actual server-interaction, for instance in some service, and return only the response-promise:
+```js
+service.getData = function () {
+  var response = $http({
+    method: 'GET',
+    url: 'http://some-url.com/data'
+  });
+
+  return response;
+};
+```
+- To define values that are available troughout the app, register a `constant` with the app and inject it into the modules where it is needed, e.g.
+```js
+angular
+  .module('app', [])
+  .constant('ApiBasePath', "http://some-url.com/");
+```
+
+## week 3: Introduction to custom directives
+- From the documentation: "AngularJS lets you extend HTML vocabulary for your application". Directives heavily increases the flexibility of html, e.g. like here:
+```html
+<ol>
+  <list-item ng-repeat="item in list.items"></list-item>
+</ol>
+```
+- angular can identify new tags that you have registered and will compile them. A directive is a marker on a DOM element that angular can use to attach specified behavior to that element or change it. A marker can be an *attribute* or an *element name* or - much less common and not good pracice - a *comment* or a *CSS class*.
+- To create a new directive
+1. Register the directive with the module:
+```js
+angular
+  .module('app', [])
+  .directive('myTag', MyTag);
+```
+2. Define the Factory Function for the new tag:
+```js
+MyTag.$inject = [...];
+
+function MyTag (...) {
+  // define the DDO, the 'Directive Definition Object'
+  var ddo = {
+    // the template-property is just an example of many properties
+    // that can be specified here
+    template: 'Hello {{ name }}!'
+
+    // alternatively, define a template in some html-file and point to it
+    templateUrl: 'myTemplate.html'
+  };
+
+  return ddo;
+}
+```
+3. Use the tag in a normalized way, e.g. `MyTag` will be the html-element `my-tag`. In the current example, where the ddo defines a template, the template-string will be inserted at every position instead of the directive. Interpolation still works because unless specified differently, the provided scope will be the same as the scope at the position where the template is inserted.
+- We can specify where angular looks for a directive. By default, it will assume a directive can be either an attribute or an element, but we can specify this explicitely via the `restrict`-property:
+```js
+function MyDirective () {
+  var ddo = {
+    /*
+    * A: attribute - best practice if your directive is extending the
+    *    functionality of a existing element
+    * E: element - best practivce to use an element if the directive is
+    *    defining a component with an associated template
+    */
+    restrict: 'AE',
+    ...
+  };
+
+  return ddo;
+}
+```
+- In order to combine the 'controller as'-syntax with directives, it would be helpful if the directive didn't have to know the scope it is operating within. A more flexible way would be to pass value into it (e.g. the `$scope`). This can be achieved using the 'isolate scope' concept. The idea is to evaluate attribute-values in the parent-scope and pass them into the directive. Here's an example of this:
+```js
+function MyDirective () {
+  var ddo = {
+    scope: {
+      // attribute name to use in the html template, myProp will be the
+      // property available in the directive's local scope
+      myProp: '=attributeName'
+    }
+  };
+
+  return ddo;
+}
+```
+- In the html the value can simply be set as in:
+```html
+<my-directive my-prop="outerProp"></my-directive>
+```
+- The example has `myProp: '=attributeName'` which is a bidirectional binding, meaning that the directive- and parent-value's changes will be synchronized. There are alternatives and further things to consider:
+```js
+// Assumes the attribute name will be 'my-prop' and the local
+// property name is 'MyProp':
+myProp: '='
+
+// Tells angular that the attribute is optional:
+myProp: '=?'
+
+// A one-way binding that updates the directive-property if the parent-value
+// changes but not the other way round. The following will track the value
+// of 'my-attribute' on the element where the directive if defined:
+myProp: '@myAttribute'
+
+// One way binding. This will not setup watchers for property-changes inside
+// the directive (saves resources). It's not good practice anyways to
+// change properties here. However, because objects are passed by reference,
+// the directive might change objects which can have effects outside the directive
+myProp: '<'
+```
+- A directive can be more than a template holder if we add some behavior. One way to do this is to use a controller inside the directive like so:
+```js
+function MyDirective () {
+  var ddo = {
+    scope: {
+      prop: '='
+    },
+
+    // standard controller that has the values of the isolate scope
+    // available on it's $scope-service or the 'this'-variable
+    controller: ControllerFunction,
+
+    // to use 'controller as' syntax, tell angular to bind the scope-
+    // properties directly to the controller-instance, not it's $scope
+    bindToController: true,
+
+    // declare the controller name to be used within the template
+    controllerAs: 'myCtrl',
+
+    templateUrl: 'template.html'
+  };
+
+  return ddo;
+}
+```
+- note that the `ControllerFunction` here could be the name of an extra function we write or it could be the name with which we registered some controller-function on the module. In the latter case, the ddo would change to:
+```js
+var ddo = {
+  // ...
+
+  controller: 'ControllerFunction as myCtrl',
+  bindToController: true,
+
+  // ...
+};
+```
+
+
 

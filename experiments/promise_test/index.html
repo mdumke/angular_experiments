@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ListApp">
+<head>
+  <meta charset="UTF-8">
+  <title>i promise</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: black;
+      color: green;
+    }
+
+    ul {
+      margin-top: 15px;
+      list-style: none;
+    }
+
+    .wrapper {
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    .lighter {
+      color: grey;
+    }
+  </style>
+
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <div ng-controller="ListController as list" class="wrapper">
+    <input ng-model="list.newItem" placeholder="Pineapple"/>
+    <button ng-click="list.addItem();">add item</button>
+
+    <ul>
+      <li ng-repeat="item in list.items">{{ item }}</li>
+      <li ng-if="list.items.length === 0" class="lighter">No entries yet.</li>
+    </ul>
+
+  </div>
+
+</body>
+</html>
