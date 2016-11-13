@@ -7,7 +7,7 @@ var app = angular.module('NarrowItDownApp', []);
 /**
  * Define Constants
  */
-app.constant('ApiBasePath', 'http://davids-restaurant.herokuapp.com');
+app.constant('ApiBasePath', 'https://davids-restaurant.herokuapp.com');
 
 
 /**
