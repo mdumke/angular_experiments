@@ -1,0 +1,13 @@
+<h1>{{ title }}</h1>
+
+<div ng-repeat="item in listItems">
+  <span class="subject-name">{{ item }}</span>
+
+  <a ng-click="dremove({idx: $index})" class="remove">
+    remove
+  </a>
+</div>
+
+<span class="subject-name no-content" ng-if="listItems.length === 0">
+  No subjects
+</span>

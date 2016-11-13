@@ -479,7 +479,7 @@ $q.all([promise1, promise2])
     // handle error
   });
 ```
-- For servier-communication, angular uses the `$http`-service which is based on the `$q`-service. It takes as argument a configuration object to set up the request, and it returns a promise, hence a basic interaction could look like this:
+- For server-communication, angular uses the `$http`-service which is based on the `$q`-service. It takes as argument a configuration object to set up the request, and it returns a promise, hence a basic interaction could look like this:
 ```js
 $http({
   method: "GET",
@@ -605,6 +605,7 @@ myProp: '@myAttribute'
 // the directive might change objects which can have effects outside the directive
 myProp: '<'
 ```
+- The difference between `@` and `<` is that `@` uses the *value* of the parent-attribute while `<` will try to evaluate the variable specified on the parent
 - A directive can be more than a template holder if we add some behavior. One way to do this is to use a controller inside the directive like so:
 ```js
 function MyDirective () {
@@ -642,5 +643,32 @@ var ddo = {
 };
 ```
 
+
+## week 3: Directive APIs, Manipulating the DOM, and transclude
+
+- Sometimes a directive should be able to invoke methods on the parents and passing data around, e.g. information about which item in a list was clicked. Its important that the method be executed in the correct scope. In order to call a method in the parent-context, we need to specify a name to be used within the child-directive and pass in the method:
+```js
+function MyDirective () {
+  var ddo = {
+    scope: {
+      localMethodName: '&parentMethod'
+    }
+  };
+
+  return ddo;
+}
+```
+- in the parent's template, we'll have to pass reference where `someMethod` is defined on the controller and the argument is a placeholder label for a value that will be passed in from the directive.
+```html
+<div ng-controller="Controller as Ctrl">
+  <my-directive parentMethod="ctrl.someMethod(someArg)"></my-directive>
+</div>
+```
+- finally, in the directive's template, we can call the method as defined on the isolate scope and pass in arguments as an object, using the labels as defined in the parent's template:
+```html
+<button ng-click="dirCtrl.localMethodName({someArg: 'value'});">
+  click me!
+</button>
+```
 
 

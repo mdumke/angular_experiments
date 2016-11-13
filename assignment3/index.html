@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Narrow it down!</title>
+
+  <link rel="stylesheet" href="assets/styles/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/styles/main.css">
+
+  <script src="assets/scripts/angular.min.js"></script>
+  <script src="assets/scripts/app.js"></script>
+</head>
+
+<body ng-app="NarrowItDownApp">
+
+  <!-- wrapper -->
+  <div class="wrapper">
+
+    <h1 class="title">David's Restaurant</h1>
+
+    <p class="introduction">
+      Welcome to David's Restaurant. We offer a great variety of chinese dishes.
+      To help you make your choice, you can search our menu here.
+    </p>
+
+    <div ng-controller="NarrowItDownController as searchCtrl">
+      <form class="search-form">
+
+        <input
+          class="search-form__input"
+          ng-model="searchCtrl.searchTerm"
+          placeholder="Noodles" />
+
+        <button
+          class="search-form__button"
+          ng-click="searchCtrl.newSearch();">
+          Narrow It Down For Me!
+        </button>
+
+      </form>
+
+      <found-items
+        on-remove="searchCtrl.remove(index);"
+        searching="searchCtrl.searching"
+        found="searchCtrl.found">
+      </found-items>
+    </div>
+
+  </div> <!-- /wrapper -->
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<div class="menu-list">
+
+  <div ng-repeat="item in found" ng-if="!searching" class="menu-list__item">
+
+    <div class="menu-list__item-info">
+      <h2 class="menu-list__item-title">
+        {{ item.name }}
+        <span class="menu-list__item-short-title">
+          ({{ item.short_name }})
+        </span>
+      </h2>
+
+      <div class="menu-list__item-description">
+        {{ item.description }}
+      </div>
+    </div>
+
+    <button
+      ng-click="onRemove({index: $index});"
+      class="menu-list__item-remove-button">
+      Don't want this one!
+    </button>
+  </div>
+
+  <div class="menu-list__no-results" ng-if="!searching && found.length === 0">
+    No Results
+  </div>
+
+  <div ng-if="searching">
+    <span class="menu-list__wait">
+      <i class="fa fa-spin fa-spinner"></i>
+    </span>
+  </div>
+
+</div>

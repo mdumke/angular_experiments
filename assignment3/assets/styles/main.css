@@ -1,0 +1,120 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: roboto, sans-serif;
+  color: #222;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 2.3rem;
+}
+
+.introduction {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.search-form {
+  margin-bottom: 30px;
+}
+
+.search-form__input {
+  font-size: 1.3rem;
+  padding: 5px 7px;
+  border-radius: 3px;
+  border: 1px solid #999;
+}
+
+.search-form__button {
+  display: inline-block;
+  font-size: 1.3rem;
+  padding: 5px 12px;
+  background-color: #eee;
+  border: 1px solid #999;
+  border-radius: 3px;
+  margin-left: 3px;
+}
+
+.search-form__button:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.menu-list__item {
+  padding-bottom: 30px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.menu-list__item:first-child {
+  border-top: none;
+}
+
+.menu-list__item::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.menu-list__item-info {
+  float: left;
+  width: 70%;
+}
+
+.menu-list__item-title {
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 3px;
+}
+
+.menu-list__item-short-title {
+  color: #444;
+  font-size: 1rem;
+}
+
+.menu-list__item-remove-button {
+  float: right;
+  padding: 3px 7px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 1rem;
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+}
+
+.menu-list__item-remove-button:hover {
+  background-color: #ccc;
+}
+
+.menu-list__item-remove-button:hover {
+  background-color: #bbb;
+}
+
+.menu-list__item-description {
+  padding-left: 20px;
+  color: #444;
+}
+
+.menu-list__no-results {
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.menu-list__wait {
+  font-size: 1.4rem;
+  color: #555;
+}
+
