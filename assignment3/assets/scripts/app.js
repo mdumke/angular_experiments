@@ -33,7 +33,8 @@ app.service('MenuFilterService', [function () {
 
   service.filter = function (menuItems, searchTerm) {
     return menuItems.filter(function (item) {
-      return (item.name.indexOf(searchTerm) !== -1);
+      return (item.name.indexOf(searchTerm) !== -1 ||
+              item.description.indexOf(searchTerm) !== -1);
     });
   };
 }]);
