@@ -3,32 +3,24 @@
 'use strict';
 
 angular
-  .module('SubjectsApp', [])
-  .controller('ListController', ListController)
-  .directive('list', ListDirective);
+  .module('TestApp', ['ui.router'])
+  .config(RouterConfig);
 
-function ListController () {
-  var list = this;
 
-  list.subjects = ['AI', 'Computer Security', 'MEAN Stack', 'Algorithms'];
+RouterConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-  list.remove = function (idx) {
-    list.subjects.splice(idx, 1);
-  }
-}
+function RouterConfig($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('tab1', {
+      url: '/tab1',
+      template: 'content 1'
+    })
+    .state('tab2', {
+      url: '/tab2',
+      template: 'content 2'
+    });
 
-function ListDirective () {
-  var ddo = {
-    restrict: 'E',
-    templateUrl: 'list.html',
-    scope: {
-      listItems: '<subjects',
-      title: '@',
-      dremove: '&remove'
-    }
-  };
-
-  return ddo;
+  $urlRouterProvider.otherwise('/tab1');
 }
 
 })();
