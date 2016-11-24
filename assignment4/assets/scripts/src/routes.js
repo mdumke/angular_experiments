@@ -7,7 +7,7 @@ angular
 
 RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-function RoutesConfig($stateProvider, $urlRouterProvider) {
+function RoutesConfig ($stateProvider, $urlRouterProvider) {
 
   /* configure states */
   $stateProvider
@@ -15,7 +15,14 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   /* home state */
   .state('home', {
     url: '/',
-    templateUrl: 'assets/scripts/src/modules/menuapp/menuapp.template.home.html'
+    templateUrl: 'assets/scripts/src/modules/menuapp/home.template.html'
+  })
+
+  /* categories state */
+  .state('categories', {
+    url: '/categories',
+    controller: 'CategoriesController as categories',
+    templateUrl: 'assets/scripts/src/modules/menuapp/categories.template.html'
   });
 
   /* configure url-routing */
