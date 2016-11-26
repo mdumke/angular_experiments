@@ -22,7 +22,7 @@ function RoutesConfig ($stateProvider, $urlRouterProvider) {
   .state('categories', {
     url: '/categories',
     controller: 'CategoriesController as categories',
-    templateUrl: 'assets/scripts/src/modules/menuapp/categories.template.html'
+    templateUrl: 'assets/scripts/src/modules/menuapp/components/categories/categories.template.html'
   });
 
   /* configure url-routing */
