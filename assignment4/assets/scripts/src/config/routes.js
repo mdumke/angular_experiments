@@ -22,7 +22,12 @@ function RoutesConfig ($stateProvider, $urlRouterProvider) {
   .state('categories', {
     url: '/categories',
     controller: 'CategoriesController as categories',
-    templateUrl: 'assets/scripts/src/modules/menuapp/components/categories/categories.template.html'
+    templateUrl: 'assets/scripts/src/modules/menuapp/categories.template.html',
+    resolve: {
+      categoriesData: ['MenuDataService', function (MenuDataService) {
+        return MenuDataService.getAllCategories();
+      }]
+    }
   });
 
   /* configure url-routing */
