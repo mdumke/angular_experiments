@@ -1,0 +1,89 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #333;
+}
+
+.wrapper {
+  max-width: 670px;
+  margin: 0 auto;
+}
+
+
+/* page-header */
+
+.page-header {
+  padding: 15px 0 15px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.page-header__logo {
+  font-size: 1.7rem;
+  text-decoration: none;
+  color: #bd2020;
+  font-variant: small-caps;
+}
+
+.page-header__logo:hover {
+  color: #333;
+}
+
+/* patchwork */
+
+.patchwork {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.patch {
+  position: relative;
+  width: 330px;
+  padding: 15px;
+  font-size: 1.3rem;
+  margin-bottom: 9px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.patch--centered {
+  text-align: center;
+}
+
+.patch__paragraph {
+  margin-bottom: 10px;
+}
+
+
+/* page-title */
+
+.page-title {
+  text-align: center;
+  font-weight: 400;
+  padding: 15px 0 10px 0;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  background-color: #fff;
+}
+
+.categories-link {
+  display: block;
+  position: absolute;
+  top: 43%;
+  left: 29%;
+  font-size: 1.7rem;
+  text-decoration: none;
+  color: #db2020;
+  font-variant: small-caps;
+}
+
+.categories-link:hover {
+  color: #333;
+}
+
+
