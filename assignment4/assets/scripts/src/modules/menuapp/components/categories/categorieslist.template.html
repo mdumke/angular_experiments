@@ -4,6 +4,7 @@ From categories-component template:
 
 <ul>
   <li ng-repeat="item in $ctrl.data">
+    <a ui-sref="items({shortName:item.short_name})">{{ item.short_name }}</a>
     {{ item }}
   </li>
 </ul>

@@ -28,6 +28,18 @@ function RoutesConfig ($stateProvider, $urlRouterProvider) {
         return MenuDataService.getAllCategories();
       }]
     }
+  })
+
+  /* detail view state */
+  .state('items', {
+    url: '/categories/{shortName}',
+    controller: 'ItemsController as items',
+    templateUrl: 'assets/scripts/src/modules/menuapp/items.template.html',
+    resolve: {
+      data: ['MenuDataService', '$stateParams', function (MenuDataService, $stateParams) {
+        return MenuDataService.getItemsForCategory($stateParams.shortName);
+      }]
+    }
   });
 
   /* configure url-routing */
