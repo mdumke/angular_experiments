@@ -120,6 +120,10 @@ a:hover {
   border-collapse: collapse;
 }
 
+.menu-list__table tbody tr:hover {
+  background-color: #eee;
+}
+
 .menu-list__table thead td {
   padding-bottom: 10px;
   color: #555;
