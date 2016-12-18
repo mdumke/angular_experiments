@@ -10,8 +10,8 @@ ItemsController.$inject = ['data'];
 function ItemsController (data) {
   var items = this;
 
-  items.currentCategory = data.category.name;
-  items.data = data.menu_items;
+  items.category = data.category;
+  items.itemData = data.menu_items;
 }
 
 })();

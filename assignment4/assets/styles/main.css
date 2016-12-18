@@ -9,6 +9,15 @@ body {
   color: #333;
 }
 
+a {
+  text-decoration: none;
+  color: #bd2020;
+}
+
+a:hover {
+  color: #333;
+}
+
 .wrapper {
   max-width: 670px;
   margin: 0 auto;
@@ -24,13 +33,12 @@ body {
 
 .page-header__logo {
   font-size: 1.7rem;
-  text-decoration: none;
-  color: #bd2020;
   font-variant: small-caps;
 }
 
-.page-header__logo:hover {
-  color: #333;
+.page-header__menu-item {
+  float: right;
+  margin-top: 11px;
 }
 
 /* patchwork */
@@ -102,6 +110,64 @@ body {
 
 .categories-link:hover {
   color: #333;
+}
+
+
+/* menu-list */
+
+.menu-list__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.menu-list__table thead td {
+  padding-bottom: 10px;
+  color: #555;
+}
+
+.menu-list__table td {
+  vertical-align: top;
+  padding-bottom: 5px;
+}
+
+.menu-list__table td:nth-child(2) {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.menu-list__table td:nth-child(3) {
+  min-width: 50px;
+  text-align: right;
+  border-right: 1px solid #ccc;
+  padding-right: 10px;
+}
+
+.menu-list__table td:nth-child(4) {
+  min-width: 50px;
+  text-align: right;
+  padding-left: 10px;
+}
+
+.menu-list__item-name {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-variant: small-caps;
+}
+
+.menu-list__item-short-name {
+  font-size: 1.3rem;
+  color: #888;
+}
+
+.menu-list__item-image {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.menu-list__category-info {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  padding-top: 10px;
 }
 
 

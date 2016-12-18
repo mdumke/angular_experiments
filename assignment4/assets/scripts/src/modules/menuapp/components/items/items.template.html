@@ -1,5 +1,45 @@
-<ul>
-  <li ng-repeat="item in $ctrl.data">
-    {{ item.name }}
-  </li>
-</ul>
+<table class="menu-list__table">
+
+  <thead>
+    <th>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>small</td>
+        <td>large</td>
+      </tr>
+    </th>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="item in $ctrl.data">
+
+      <td>
+        <img class="menu-list__item-image"
+             src="assets/images/food1.jpg"
+             alt="some food item"
+             width="120px"
+             height="120px">
+      </td>
+
+      <td>
+          <p class="menu-list__item-name">
+            {{ item.name }}
+            <span class="menu-list__item-short-name">
+              ({{ item.short_name }})
+            </span>
+          </p>
+
+          <p>{{ item.description }}</p>
+      </td>
+
+      <td ng-if="item.price_small">{{ item.price_small }}</td>
+      <td ng-if="!item.price_small"> - </td>
+
+      <td ng-if="item.price_large">{{ item.price_large }}</td>
+      <td ng-if="!item.price_large"> - </td>
+
+    </tr>
+  </tbody>
+
+</table>
