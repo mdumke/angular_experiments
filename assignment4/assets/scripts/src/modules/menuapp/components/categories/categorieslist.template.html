@@ -1,10 +1,10 @@
-<br>
-From categories-component template:
-<br>
+<div class="patchwork">
 
-<ul>
-  <li ng-repeat="item in $ctrl.data">
-    <a ui-sref="items({shortName:item.short_name})">{{ item.short_name }}</a>
-    {{ item }}
-  </li>
-</ul>
+  <div ng-repeat="item in $ctrl.data" class="patch patch--small">
+    <a ui-sref="items({shortName:item.short_name})" class="patch__link">
+      {{ item.name }}
+    </a>
+  </div>
+
+</div>
+
