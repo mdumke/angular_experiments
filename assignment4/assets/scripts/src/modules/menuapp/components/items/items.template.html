@@ -16,15 +16,17 @@
 
       <td>
         <img class="menu-list__item-image"
-             src="assets/images/food1.jpg"
-             alt="some food item"
+             src="assets/images/food{{ $ctrl.randomImageId() }}.jpg"
+             alt="An image of some delicious dish."
              width="120px"
              height="120px">
       </td>
 
       <td>
           <p class="menu-list__item-name">
+
             {{ item.name }}
+
             <span class="menu-list__item-short-name">
               ({{ item.short_name }})
             </span>
@@ -33,10 +35,10 @@
           <p>{{ item.description }}</p>
       </td>
 
-      <td ng-if="item.price_small">{{ item.price_small }}</td>
+      <td ng-if="item.price_small">$&nbsp;{{ item.price_small }}</td>
       <td ng-if="!item.price_small"> - </td>
 
-      <td ng-if="item.price_large">{{ item.price_large }}</td>
+      <td ng-if="item.price_large">$&nbsp;{{ item.price_large }}</td>
       <td ng-if="!item.price_large"> - </td>
 
     </tr>

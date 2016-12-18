@@ -131,7 +131,7 @@ a:hover {
 
 .menu-list__table td {
   vertical-align: top;
-  padding-bottom: 5px;
+  padding: 5px;
 }
 
 .menu-list__table td:nth-child(2) {
@@ -169,9 +169,9 @@ a:hover {
 }
 
 .menu-list__category-info {
-  border-top: 1px solid #ccc;
   margin-top: 20px;
   padding-top: 10px;
+  padding-bottom: 50px;
 }
 
 

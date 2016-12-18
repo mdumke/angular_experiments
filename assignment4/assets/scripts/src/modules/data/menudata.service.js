@@ -7,9 +7,9 @@ angular
   .constant('ApiBasePath', 'https://davids-restaurant.herokuapp.com');
 
 
-MenuDataService.$inject = ['$http', 'ApiBasePath', '$q', '$timeout'];
+MenuDataService.$inject = ['$http', 'ApiBasePath'];
 
-function MenuDataService ($http, ApiBasePath, $q, $timeout) {
+function MenuDataService ($http, ApiBasePath) {
   var service = this;
 
   /* returns a promise to retrieve the categories-json from the server */
